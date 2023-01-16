@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="cz">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomas Games</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(gray, lightslategray, lightgray, lightslategray, gray);
+        }
+        
+        .game {
+            width: 100%;
+            height: 450px;
+            position: absolute;
+            margin-left: -8px;
+            padding-left: 10px;
+        }
+        .game img {
+            margin-right: 100px;
+        }
+        .space {
+            height: 434px;
+        }
+
+    </style>
+    <script>
+        var currentreact = 1;
+        var currentlaunch = 1;
+        var currentconsole = 1;
+        var loaded = false;
+        
+        function loadreaction() {
+            document.getElementById("reaction").innerHTML = '<h1>REAKČNÍ HRA</h1><h2 id="reactiondev"></h2><h2 id="reactionpub"></h2><h2 id="reactionrel"></h2><h2 id="reactionczk"></h2><img src="resources/images/launcher/games/reaction/r' + currentreact + '.png" alt="" style="float: right; margin-top: -248px;" height="360px">';
+            currentreact++;     
+            if(currentreact == 3) currentreact = 1;
+            if(loaded) load();
+        }
+        function loadcalc() {
+            document.getElementById("calculator").innerHTML = '<h1>KALKULAČKA</h1><h2 id="calcdev"></h2><h2 id="calcpub"></h2><h2 id="calcrel"></h2><h2 id="calcczk"></h2><img src="resources/images/launcher/games/calculator/c1.png" alt="" style="float: right; margin-top: -248px;" height="360px">';
+            if(loaded) load();
+        }
+
+        function loadlauncher() {
+            document.getElementById("launcher").innerHTML = '<h1>LAUNCHER</h1><h2 id="launcherver"></h2><img src="resources/images/launcher/launcher/l' + currentlaunch + '.png" alt="" style="float: right; margin-top: -107px;" height="360px"><br><a href="resources/apps/installer.jar" download><img src = "resources/images/web/download.png" width="250px" height="75px"></img></a>';
+            currentlaunch++;
+            if(currentlaunch == 5) currentlaunch = 1;
+            if(loaded) load();
+        }
+
+        function loadConsole() {
+            document.getElementById("console").innerHTML = '<h1>CONSOLE</h1><h2 id="consoledev"></h2><img src="resources/images/launcher/api/console/c' + currentconsole + '.png" alt="" style="float: right; margin-top: -108px;" height="360px">'
+            currentconsole++;
+            if(currentconsole == 3) currentconsole = 1;
+            if(loaded) load();
+        }
+
+        function loadYoutuber() {
+            document.getElementById("youtubersimulator").innerHTML = '<h1>Youtuber simulator</h1><h2 id="ytdev"></h2><h2 id="ytpub"></h2><h2 id="ytrel">Release date: 18-3-2023</h2><h2 id="ytczk"></h2> <img src="resources/images/launcher/games/youtubersim/y1.png" alt="" style="float: right; margin-top: -248px;" height="360px">';
+            if(loaded) load();
+        }
+
+        function updateTime() {
+            var remdays = getTimeRemaining('2023-2-18 15:00').days;
+            var remhours = getTimeRemaining('2023-2-18 15:00').hours;
+            var remminutes = getTimeRemaining('2023-2-18 15:00').minutes;
+            var remseconds = getTimeRemaining('2023-2-18 15:00').seconds;
+            if(remdays < 0 || remhours < 0 || remminutes < 0 || remseconds < 0) {
+                document.getElementById("ytrel").innerText = "Release date: 18-3-2023";
+            }
+            else {
+                document.getElementById("ytrel").innerText = "Releasing in: " + remdays + ":" + remhours + ":" + remminutes + ":" + remseconds;
+            }
+        }
+
+        function getTimeRemaining(endtime){
+            const total = Date.parse(endtime) - Date.parse(new Date());
+            const seconds = Math.floor( (total/1000) % 60 );
+            const minutes = Math.floor( (total/1000/60) % 60 );
+            const hours = Math.floor( (total/(1000*60*60)) % 24 );
+            const days = Math.floor( total/(1000*60*60*24) );
+            return {
+                total,
+                days,
+                hours,
+                minutes,
+                seconds
+            }; 
+        }
+
+        function autoImageChange() {
+            loadreaction();
+            loadlauncher();
+            loadConsole();
+        }
+
+        function start() {
+            loadlauncher();
+            loadConsole();
+            loadreaction();
+            loadcalc();
+            loadYoutuber();
+            loaded = true;
+            load();
+            window.setInterval(autoImageChange, 1500);
+            window.setInterval(updateTime, 1000);
+        }
+
+        function load() {
+            document.getElementById("launcherver").innerText = "Verze: 1.2.1";
+            document.getElementById("consoledev").innerText = "Developer: Tomas Games";
+            document.getElementById("reactiondev").innerText = "Developer: Tomas Games";
+            document.getElementById("reactionpub").innerText = "Publisher: Tomas Games";
+            document.getElementById("reactionrel").innerText = "Release date: 28-10-2022";
+            document.getElementById("reactionczk").innerText = "Price: 0 CZK";
+            document.getElementById("calcdev").innerText = "Developer: Tomas Games";
+            document.getElementById("calcpub").innerText = "Publisher: Tomas Games";
+            document.getElementById("calcrel").innerText = "Release date: 27-10-2022";
+            document.getElementById("calcczk").innerText = "Price: 0 CZK";
+            document.getElementById("ytdev").innerText = "Developer: Tomas Games";
+            document.getElementById("ytpub").innerText = "Publisher: Tomas Games";
+            document.getElementById("ytczk").innerText = "Price: 550 CZK"
+        }
+    </script>
+</head>
+<body onload="start()">
+    <header>
+        <div style="height: 100px; position: absolute; width: 100%; margin-left: -10px; margin-top: -15px;">
+            <img src="resources/images/web/logo.png" alt="" height="100%" width="10%" style="position: absolute; padding-left: 10px;">
+            <h1 style = "text-align: center; padding-top: 10px;">Tomas Games</h1>
+        </div>
+    </header>
+    <p style="height: 60px;"></p>
+    <h1 class = "" style="margin-left: -8px; text-align: center; margin-top: 25px; width: 100%;">O nás</h1>
+    <h1 class="" style="margin-left: -8px; margin-top: -21px; width: 100%; padding-left: 10px;">Jsme začátečnická firma, která se zajímá o vývoj počítačových aplikacích a her. Máme svůj vlastní launcher s názvem Tomas Games Launcher</h1>
+    <h1 style="margin-left: -8px; text-align: center; margin-top: -22px; width: 100%;" class="">Tomas Games Launcher</h1>
+    <div class="game" id="launcher" style="margin-top: -21px;"> 
+        
+    </div>
+    <p class="space"></p>
+    <h1 style="margin-left: -8px; text-align: center; margin-top: -21px; width: 100%;">API</h1>
+    <div class="game" id="console" style="margin-top: -22px;">
+    </div>
+    <p class="space"></p>
+    <h1 style="margin-left: -8px; text-align: center; margin-top: -21px; width: 100%;">Hry nacházející se na Tomas Games Launcheru</h1>
+    <div class="game" id="reaction" style="margin-top: -22px;">
+    </div>
+    <p class="space"></p>
+    <div class="game" id="calculator" style="margin-top: -22px;">
+        <h1>test</h1>
+    </div>
+    <p class="space"></p>
+    <div class="game" id="youtubersimulator" style="margin-top: -22px;">
+
+    </div>
+    <p class="space"></p>
+    <h1 style="margin-left: -8px; text-align: center; margin-top: -22px; width: 100%;">Kontakt</h1>
+    <div style="margin-left: -8px; margin-top: -22px; width: 100%;">
+        <strong>
+            <div style="font-size: 2em;">
+                Tomáš Urban
+                <ul style="margin-top: 0px;">
+                    <li>Email: tomasurban3a125@gmail.com</li>
+                </ul>
+            </div>
+        </strong>
+    </div>
+    <h1 style="margin-left: -8px; text-align: center; margin-top: -22px; width: 100%;">Sídlo firmy</h1>
+    <div style="margin-left: -8px; width: 100%; margin-top: -22px;">
+        <h1>620 Crossroads Blvd, Cary, NC 27518, Spojené státy</h1>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1021.2953151841754!2d-78.73360100889799!3d35.75594829817786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89acf4964103c69f%3A0x4fd397078ceffa1!2sEpic%20Games!5e1!3m2!1scs!2scz!4v1673431519700!5m2!1scs!2scz" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <footer>
+        <div style="height: 100px; position: absolute; width: 100%; margin-left: -10px;">
+            <h1 style="text-align: center; margin-top: 35px;">Website made by ©Tomas Games 2022-2023</h1>
+        </div>
+    </footer>
+</body>
+</html>
